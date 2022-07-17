@@ -22,7 +22,8 @@ $(document).ready(function() {
         }
       });
     }, 
-  //options for intersectionobserver
+    
+  //options {root:, rootMargin:, threshold:} for intersectionobserver
     {
 //what elements acts as viewport can be element or window if root:null
       root: document.querySelector("#container"),
