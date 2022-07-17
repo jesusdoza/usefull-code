@@ -6,6 +6,8 @@
     <title>Document</title>
 </head>
 <body>
+    <h1>scroll down to see kittens load</h1>
+    <p>open console to see when each image is actually loading</p>
     <img src="" alt="kitten1"  data-img="https://placekitten.com/g/200/300"  class="lazy" style="margin-top:100vh; width: 50%;">
     <img src="" alt="kitten2"  data-img="https://placekitten.com/g/200/300"  class="lazy" style="margin-top:100vh; width: 50%;">
     <img src="" alt="kitten3"  data-img="https://placekitten.com/g/200/300"  class="lazy" style="margin-top:100vh; width: 50%;">
@@ -36,13 +38,13 @@ console.log(`instersect in window object`)
 
         //get elements hidden image url data-img
         let imageUrl = entry.target.getAttribute('data-img')
-        console.log(imageUrl)
+       
 
         //if it had a url in data-img
         if(imageUrl){
           //swap it to src attribute
           entry.target.src = imageUrl;
-
+          console.log(entry.target.src)
           //remove observer since it no longer needed
           observer.unobserve(entry.target)
         }
