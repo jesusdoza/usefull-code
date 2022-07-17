@@ -1,0 +1,71 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <img src="" alt="kitten1"  data-img="https://placekitten.com/g/200/300"  class="lazy" style="margin-top:100vh; width: 50%;">
+    <img src="" alt="kitten2"  data-img="https://placekitten.com/g/200/300"  class="lazy" style="margin-top:100vh; width: 50%;">
+    <img src="" alt="kitten3"  data-img="https://placekitten.com/g/200/300"  class="lazy" style="margin-top:100vh; width: 50%;">
+
+    <script>
+        window.onload = (function() {
+  let lazyloadImages; //will hold all lazy elements in nodelist
+
+//if window object has an intersectio observer
+if ("IntersectionObserver" in window) {
+//get all items marked for lazy load class
+console.log(`instersect in window object`)
+  lazyloadImages = document.querySelectorAll(".lazy");
+  let options={
+    root:null,
+    rootMargin:'0px',
+    threshold:0,
+
+  }
+
+
+//callback inside observer auto recieves entries and observer arguments
+  let callback=function(entries, observer){
+    entries.forEach((entry)=>{
+        console.log(`observer callback`)
+      //element in in view port and has class of lazyload
+      if(entry.isIntersecting && entry.target.className==='lazy'){
+
+        //get elements hidden image url data-img
+        let imageUrl = entry.target.getAttribute('data-img')
+        console.log(imageUrl)
+
+        //if it had a url in data-img
+        if(imageUrl){
+          //swap it to src attribute
+          entry.target.src = imageUrl;
+
+          //remove observer since it no longer needed
+          observer.unobserve(entry.target)
+        }
+      }
+    })
+  }
+
+//observer instance
+  let observer = new IntersectionObserver(callback,options);
+
+  //if anything to observe
+    if(lazyloadImages){
+      lazyloadImages.forEach(image=>{
+        console.log(`observer on kitten`)
+        observer.observe(image)
+      })
+    }
+
+
+} 
+
+})
+    </script>
+
+</body>
+</html>
